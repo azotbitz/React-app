@@ -1,0 +1,9 @@
+body {
+  background-color: black;
+  text-align: center;
+  font-family: "Apple Braille", sans-serif;
+  font-size: 17px;
+  font-style: italic;
+  color: darkred;
+  position: center;
+}
