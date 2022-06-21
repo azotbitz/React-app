@@ -4,6 +4,8 @@ import './index.css';
 import SomeNestedChild from './App'
 import reportWebVitals from './reportWebVitals';
 import {ThemeProvider, createTheme} from '@material-ui/core';
+import {BrowserRouter} from "react-router-dom";
+
 
 
 const theme = createTheme({
@@ -30,9 +32,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
 root.render(
-    <ThemeProvider theme={theme}>
+    <BrowserRouter>
+        <ThemeProvider theme={theme}>
         <SomeNestedChild />
-    </ThemeProvider>
+        </ThemeProvider>
+    </BrowserRouter>
 );
 
 reportWebVitals();
