@@ -9,32 +9,36 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import {Button, Divider, Fab, FormGroup, Input} from "@material-ui/core";
+import {Button, Divider, FormGroup} from "@material-ui/core";
 import CustomLink from "./CustomLink";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import Box from "@mui/material/Box";
+import {useDispatch, useSelector} from "react-redux";
+import {getChatSelector} from "../redux/reducers/chatsReducer/chatsSelector";
+import {ADD_CHAT} from "../redux/actionTypes";
 
 
-export default function NestedList(props) {
+export default function NestedList() {
     const [open, setOpen] = React.useState(true);
-    const [chatUser, setChatUser] = useState(['Andrey', 'Evgeniy', 'Anna']);
-    const [user, setUser] = useState('');
-    const inputRef = useRef('');
+    const [chatUser, setChatUser] = useState('');
     const handleClick = () => {
         setOpen(!open);
     };
 
-    useEffect(() =>
-    setUser('')
-    , [chatUser])
 
-    const deleteProduct = (product) => {
-        setChatUser(chatUser.filter(p => p !== product));
+
+    const chatList = useSelector(getChatSelector);
+    const dispatch = useDispatch();
+
+    const addChatUser = () => {
+        const obj = {
+            id: Math.random(),
+            name: chatUser
+        }
+        dispatch({type: ADD_CHAT, payload: obj})
     }
-
-    function handleClick2(e) {
-        e.preventDefault()
-        setChatUser(prevState => [...prevState, user])
+    const deleteChatUser = (chatUser) => {
+        dispatch({type: "DELETE_CHAT", payload: chatUser})
     }
 
         return(
@@ -59,24 +63,24 @@ export default function NestedList(props) {
             <Box sx={{ '& > :not(style)': { m: 1 } }}>
                 <FormGroup action=''>
                 <input placeholder='Add Chat' type="text" className='input'
-                       ref={inputRef} value={user} onChange={(e) => setUser(e.target.value)}/>
-                    <Button variant="contained" onClick={handleClick2}>+</Button>
+                       value={chatUser} onChange={(e) => setChatUser(e.target.value)}/>
+                    <Button variant="contained" onClick={addChatUser}>+</Button>
                 </FormGroup>
             </Box>
             <Collapse in={open} timeout="auto" unmountOnExit>
-                {chatUser.map((cUser) => {
+                {chatList.map((cUser) => {
                     return(
-                        <List component="div" disablePadding key={cUser}>
+                        <List component="div" disablePadding key={cUser.id}>
                             <Divider/>
-                            <CustomLink to={`/chats/${cUser}`}>
+                            <CustomLink to={`/chats/${cUser.id}`}>
                                 <ListItemButton>
                                     <ListItemIcon>
                                         <SendIcon/>
                                     </ListItemIcon>
-                                    <ListItemText style={{color:'darkgrey'}} primary={<p>{cUser}</p>}/>
+                                    <ListItemText style={{color:'darkgrey'}} primary={<p>{cUser.name}</p>}/>
                                 </ListItemButton>
                             </CustomLink>
-                            <Button variant="contained" onClick={() => deleteProduct(cUser) }>-</Button>
+                            <Button variant="contained" onClick={() => deleteChatUser(cUser.id)}>-</Button>
                             <Divider/>
                         </List>
                     )
