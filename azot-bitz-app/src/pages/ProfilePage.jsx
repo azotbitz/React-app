@@ -12,7 +12,7 @@ export default function MediaCard() {
             <CardMedia
                 component="img"
                 height="700"
-                image={require('./VK.jpg')}
+                image={require('../images/VK.jpg')}
                 alt="Vasily"
                 border='4px solid black'
             />

@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from "@mui/material/Button";
-import CustomLink from "./CustomLink";
+import CustomLink from "../components/CustomLink";
 
 const NotFoundPage = () => {
     return (
