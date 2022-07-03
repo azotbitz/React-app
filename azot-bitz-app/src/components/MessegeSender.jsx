@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Button, FormGroup, makeStyles} from "@material-ui/core";
 import {ADD_MESSAGE, addMessage} from "../redux/actionTypes";
@@ -23,8 +23,6 @@ const MessageSender = () => {
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const {id} = useParams();
-
-
 
 
     const sendMessage = () => {

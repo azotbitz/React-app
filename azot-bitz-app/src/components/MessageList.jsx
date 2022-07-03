@@ -19,7 +19,9 @@ const MessageList = () => {
     })
 
     const deleteMessage = (id) => {
-        dispatch({type: DELETE_MESSAGE, payload: id})
+        dispatch({type: DELETE_MESSAGE, payload: id, meta: {
+            delay: 3000
+            }})
     }
 
 

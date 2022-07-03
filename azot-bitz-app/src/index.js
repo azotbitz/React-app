@@ -5,7 +5,8 @@ import SomeNestedChild from './components/App'
 import {ThemeProvider, createTheme} from '@material-ui/core';
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import {store} from "./redux/configureStore"
+import {store, persist} from "./redux/configureStore"
+import {PersistGate} from "redux-persist/integration/react";
 
 
 
@@ -35,9 +36,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
         <Provider store={store}>
-        <ThemeProvider theme={theme}>
-        <SomeNestedChild />
-        </ThemeProvider>
+        <PersistGate persistor={persist}>
+            <ThemeProvider theme={theme}>
+                <SomeNestedChild />
+            </ThemeProvider>
+        </PersistGate>
         </Provider>
     </BrowserRouter>
 );
