@@ -1,40 +1,21 @@
 import {createStore, combineReducers, applyMiddleware} from "redux";
-import { chatsReducer } from "./reducers/chatsReducer/chatsReducer";
-import { messagesReducer } from "./reducers/messagesReducer/messagesReducer";
-import storage from 'redux-persist/lib/storage';
-import {persistReducer, persistStore} from "redux-persist";
+import {chatsReducer} from "./reducers/chatsReducer/chatsReducer";
+import {messagesReducer} from "./reducers/messagesReducer/messagesReducer";
+import {todosReducer} from "./reducers/todosReducer/todosReducer";
+import {createLogger} from "redux-logger/src";
+import thunk from "redux-thunk";
 
-const logger = (store) => (next) => (action) => {
-    let result = next(action);
-    return result;
-}
-
-const time = (store) => (next) => (action) => {
-    const delay = action?.meta?.delay;
-
-    if(!delay) {
-        return next(action)
-    }
-
-    const timeOut = setTimeout(() => next(action), delay);
-
-    return () => {
-        clearTimeout(timeOut)
-    }
-}
-
-const persistConfig = {
-    key: 'root',
-    storage
-}
+const logger = createLogger({
+    collapsed: true,
+    diff: true
+})
 
 const rootReducer = combineReducers({
     chats: chatsReducer,
     messages: messagesReducer,
+    todos: todosReducer,
 })
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-export const store = createStore(persistedReducer, applyMiddleware(logger, time));
+export const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
-export const persist = persistStore(store);
