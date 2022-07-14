@@ -17,6 +17,7 @@ export default function ButtonAppBar() {
                     <CustomLink to={'/'}><Button variant="contained">Home</Button></CustomLink>
                     <CustomLink to={'/chats'}><Button variant="contained">Chats</Button></CustomLink>
                     <CustomLink to={'/profile'}><Button variant="contained">Profile</Button></CustomLink>
+                    <CustomLink to={'/todos'}><Button variant="contained">Todos</Button></CustomLink>
                 </Toolbar>
             </AppBar>
         </Box>

@@ -20,20 +20,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const ChatsPage = () => {
 
-         const [author, setAuthor] = useState('');
-        // const [text, setText] = useState('');
+        const [author, setAuthor] = useState('');
         const [changer, setChanger] = useState(false);
-        // const ref = useRef('');
-        // const ref2 = useRef('');
         const [messageList2, setMessageList2] = useState([]);
         const [chatArray, setChatArray] = useState([]);
 
         useEffect(() => {
-                //ref.current.focus();
-                //setChatArray(prevState => [...prevState, {id: giveId(prevState), name: author}]);
+
                 if(changer) {
                     setChanger(!changer);
-                    //setText('')
                     setAuthor('')
                 }
             }, [messageList2]
