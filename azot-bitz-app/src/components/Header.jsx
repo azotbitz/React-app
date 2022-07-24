@@ -5,6 +5,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CustomLink from "./CustomLink";
+import {LogOut} from "../pages/HomePage";
+
 
 export default function ButtonAppBar() {
     return (
