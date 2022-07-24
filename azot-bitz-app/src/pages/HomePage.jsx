@@ -3,6 +3,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
+import {useDispatch, useSelector} from "react-redux";
+import {logoutInitiate} from "../redux/reducers/userReducer/userReducer";
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {userSelector} from "../redux/reducers/userReducer/userSelector";
 
 const data = [
     {
@@ -34,8 +39,23 @@ interface MediaProps {
 
 function Media(props: MediaProps) {
     const { loading = false } = props;
+    const navigate = useNavigate();
+    const user = useSelector(userSelector);
+    const dispatch = useDispatch();
+    const logOut = () => {
+        dispatch(logoutInitiate())
+    }
+
+    useEffect(() => {
+        if(user === null){
+        navigate('/login')}
+    }, [user, navigate])
 
     return (
+        <>
+            <div>
+                <button onClick={logOut}>LOG OUT</button>
+            </div>
         <Grid container wrap="nowrap" justifyContent='center'>
             {(loading ? Array.from(new Array(3)) : data).map((item, index) => (
                 <Box key={index} sx={{ width: 210, marginRight: 0.5, my: 5 }}>
@@ -69,8 +89,11 @@ function Media(props: MediaProps) {
                 </Box>
             ))}
         </Grid>
+            </>
     );
+
 }
+
 
 export default function YouTube() {
     return (
